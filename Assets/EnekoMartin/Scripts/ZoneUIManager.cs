@@ -3,32 +3,46 @@ using UnityEngine.SceneManagement;
 
 public class ZoneUIManager : MonoBehaviour
 {
-    public GameObject uiCanvas;
+    public GameObject uiCanvas;  // Referencia al Canvas
 
-    private string targetScene = "";
+    private string targetScene;
 
-    void Start()
-    {
-        uiCanvas.SetActive(false);
-    }
-
-    public void ShowUI(string sceneName)
+    // Asigna la escena que se cargará
+    public void SetTargetScene(string sceneName)
     {
         targetScene = sceneName;
-        uiCanvas.SetActive(true);
+        Debug.Log($"Se ha establecido targetScene como {targetScene}");
     }
 
+    // Muestra el Canvas y la UI
+    public void ShowUI(string message)
+    {
+        if (uiCanvas != null)
+        {
+            uiCanvas.SetActive(true);  // Activa el Canvas
+        }
+    }
+
+    // Oculta el Canvas y la UI
     public void HideUI()
     {
-        uiCanvas.SetActive(false);
-        targetScene = "";
+        if (uiCanvas != null)
+        {
+            uiCanvas.SetActive(false);  // Desactiva el Canvas
+        }
     }
 
-    public void GoToScene()
+    // Carga la escena cuando el botón es clickeado
+    public void LoadScene()
     {
         if (!string.IsNullOrEmpty(targetScene))
         {
-            SceneManager.LoadScene(targetScene);
+            SceneManager.LoadScene(targetScene);  // Carga la escena
+            Debug.Log($"Cargando la escena: {targetScene}");
+        }
+        else
+        {
+            Debug.LogError("No se ha asignado una escena.");
         }
     }
 }
